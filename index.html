@@ -3,69 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NFT Live Pro - Rapport Ultime</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Rapport NFT Ultime Pro Live</title>
+<link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<style>
-body { font-family: Arial,sans-serif; background:#f5f5f5; transition: background 0.3s, color 0.3s;}
-body.dark-mode { background:#1e1e1e; color:#f5f5f5;}
-.container { max-width:1200px; margin:auto; padding:20px;}
-.controls { margin-bottom:20px; }
-nav a { margin-right:15px; color:#007bff; text-decoration:none; }
-nav a:hover { text-decoration:underline; }
-.section { margin:30px 0; padding:20px; background:#fff; border-radius:10px; box-shadow:0 3px 12px rgba(0,0,0,0.2);}
-body.dark-mode .section { background:#2a2a2a; color:#f5f5f5;}
-img { max-width:100%; border-radius:8px; margin-bottom:10px; cursor:pointer; transition:transform 0.3s,box-shadow 0.3s;}
-img:hover { transform:scale(1.05); box-shadow:0 5px 20px rgba(0,0,0,0.4);}
-#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); justify-content:center; align-items:center; z-index:1000; flex-direction:column;}
-#lightbox img { max-width:90%; max-height:80%; border-radius:10px; }
-#lightbox .close, #lightbox .prev, #lightbox .next { position:absolute; color:white; font-size:2rem; cursor:pointer; user-select:none;}
-#lightbox .close { top:10px; right:20px; }
-#lightbox .prev { left:20px; top:50%; transform:translateY(-50%);}
-#lightbox .next { right:20px; top:50%; transform:translateY(-50%);}
-.lightbox-caption { color:white; text-align:center; margin-top:10px; font-size:1rem; }
-.chart-container { width:100%; max-width:800px; margin:20px auto; }
-@media print { .section .content { display:block !important; } }
-</style>
 </head>
 <body>
 
 <div class="container">
-<h1 class="text-center mb-4">NFT Live Pro - Rapport Ultime</h1>
-<div class="text-center mb-4 controls">
-  <button class="btn btn-primary me-2" onclick="generatePDF()">Télécharger PDF</button>
-  <button class="btn btn-secondary" onclick="toggleDarkMode()">Dark/Light Mode</button>
+<h1>Rapport NFT Ultime Pro Live</h1>
+<div class="controls">
+  <button onclick="generatePDF()">Télécharger PDF</button>
+  <button onclick="toggleDarkMode()">Dark/Light Mode</button>
 </div>
 
-<nav class="mb-4">
-<a href="#section1" class="me-3">Communautés NFT</a>
-<a href="#section2" class="me-3">Collections & Graphiques</a>
-<a href="#section3" class="me-3">Événements France</a>
-<a href="#section4" class="me-3">Investissement</a>
+<nav>
+  <a href="#section1">Communautés</a>
+  <a href="#section2">Collections</a>
+  <a href="#section3">Événements</a>
+  <a href="#section4">Investissement</a>
 </nav>
 
-<div class="section" id="section1">
-<h2>1. Communautés NFT exclusives</h2>
-<div class="content"></div>
-</div>
-
-<div class="section" id="section2">
-<h2>2. Collections & Graphiques</h2>
-<div class="content"></div>
-<div class="chart-container"><canvas id="nftChart"></canvas></div>
-</div>
-
-<div class="section" id="section3">
-<h2>3. Événements France</h2>
-<div class="content"></div>
-</div>
-
-<div class="section" id="section4">
-<h2>4. Opportunités d'investissement</h2>
-<div class="content"></div>
-</div>
+<div id="section1" class="section"></div>
+<div id="section2" class="section"></div>
+<div id="section3" class="section"></div>
+<div id="section4" class="section"></div>
 </div>
 
 <div id="lightbox">
@@ -76,71 +39,8 @@ img:hover { transform:scale(1.05); box-shadow:0 5px 20px rgba(0,0,0,0.4);}
   <div class="lightbox-caption"></div>
 </div>
 
-<script>
-// Dark/Light mode
-function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); localStorage.setItem('darkMode',document.body.classList.contains('dark-mode'));}
-if(localStorage.getItem('darkMode')==='true'){ document.body.classList.add('dark-mode');}
-
-// Lightbox
-const lightbox=document.getElementById('lightbox'); 
-const lbImage=lightbox.querySelector('img'); 
-const lbCaption=lightbox.querySelector('.lightbox-caption');
-let images=[], currentIndex=0;
-function openLightbox(i){currentIndex=i; lightbox.style.display='flex'; lbImage.src=images[currentIndex].src; lbCaption.textContent=images[currentIndex].dataset.caption;}
-function closeLightbox(){lightbox.style.display='none';}
-function prevImage(){ currentIndex=(currentIndex-1+images.length)%images.length; openLightbox(currentIndex);}
-function nextImage(){ currentIndex=(currentIndex+1)%images.length; openLightbox(currentIndex);}
-
-// PDF Export
-function generatePDF(){ document.querySelectorAll('.section .content').forEach(c=>c.style.display='block'); html2pdf().from(document.body).set({margin:0.5,filename:'NFT_Live_Pro.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}).save(); }
-
-// Simulated NFT Data
-const nftCommunities=[
-{ name:'PROOF Collective', url:'https://www.proof.xyz/collective', img:'https://www.proof.xyz/assets/proof-logo.png'},
-{ name:'BAYC', url:'https://boredapeyachtclub.com/', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f34.png'},
-{ name:'Nifty Gateway', url:'https://www.niftygateway.com/', img:'https://niftygateway.com/img/logo.svg'}
-];
-
-const nftCollections=[
-{ name:'Moonbirds', price:15, volume:1200, rarity:'Élevée', img:'https://via.placeholder.com/300x300?text=Moonbirds'},
-{ name:'BAYC', price:70, volume:3200, rarity:'Très élevée', img:'https://via.placeholder.com/300x300?text=BAYC'},
-{ name:'Grails', price:50, volume:500, rarity:'Rare', img:'https://via.placeholder.com/300x300?text=Grails'}
-];
-
-const nftEvents=[
-{ name:'ETHCC Paris', desc:'Ethereum Community Conference annuel, juin.', url:'https://www.ethcc.io/', img:'https://via.placeholder.com/300x150?text=ETHCC'},
-{ name:'Meetup Marseille', desc:'Networking et échanges communautaires.', img:'https://via.placeholder.com/300x150?text=Meetup'}
-];
-
-// Populate sections
-const sec1=document.querySelector('#section1 .content');
-nftCommunities.forEach(c=>{
-  const div=document.createElement('div');
-  div.innerHTML=`<strong>${c.name}</strong>: <a href="${c.url}" target="_blank">Site officiel</a><br><img src="${c.img}" class="lightbox-img" data-caption="${c.name}">`;
-  sec1.appendChild(div);
-});
-
-const sec2=document.querySelector('#section2 .content');
-nftCollections.forEach((nft,i)=>{
-  const div=document.createElement('div');
-  div.innerHTML=`<h4>${nft.name} - ${nft.price} ETH - Rareté: ${nft.rarity}</h4><img src="${nft.img}" class="lightbox-img" data-caption="${nft.name} NFT">`;
-  sec2.appendChild(div);
-});
-
-const sec3=document.querySelector('#section3 .content');
-nftEvents.forEach(ev=>{
-  const div=document.createElement('div');
-  div.innerHTML=`<p><strong>${ev.name}</strong> - ${ev.desc} ${ev.url?'<a href="'+ev.url+'" target="_blank">Site officiel</a>':''}</p><img src="${ev.img}" class="lightbox-img" data-caption="${ev.name}">`;
-  sec3.appendChild(div);
-});
-
-// Initialize lightbox images
-images=document.querySelectorAll('.lightbox-img');
-images.forEach((img,i)=>img.addEventListener('click',()=>openLightbox(i)));
-
-// Chart.js NFT Prices
-const ctx=document.getElementById('nftChart').getContext('2d');
-new Chart(ctx,{type:'line',data:{labels:['J-6','J-5','J-4','J-3','J-2','J-1','Aujourd’hui'],datasets:[{label:'Moonbirds',data:[12,13,14,13,14,15,15],borderColor:'#007bff',fill:false},{label:'BAYC',data:[65,66,68,69,70,71,70],borderColor:'#28a745',fill:false},{label:'Grails',data:[45,46,47,48,49,50,50],borderColor:'#ffc107',fill:false}]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:false}}}});
-</script>
+<script src="js/main.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/nft-api.js"></script>
 </body>
 </html>
