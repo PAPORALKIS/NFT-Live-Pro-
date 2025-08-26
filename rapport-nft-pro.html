@@ -135,59 +135,26 @@ document.querySelectorAll('.section .content').forEach(c=>c.style.display='none'
 function toggleDarkMode(){ document.body.classList.toggle('dark-mode'); localStorage.setItem('darkMode',document.body.classList.contains('dark-mode')); }
 if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark-mode');}
 
-// Sample dynamic content (simulable par API)
+// Sample dynamic content (can be replaced with API fetch)
 const communities = [
 { name:'PROOF Collective', url:'https://www.proof.xyz/collective', img:'https://www.proof.xyz/assets/proof-logo.png'},
-{ name:'BAYC', url:'https://boredapeyachtclub.com/', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f34.png'},
-{ name:'Nifty Gateway', url:'https://www.niftygateway.com/', img:'https://niftygateway.com/img/logo.svg'},
-{ name:'Rug Radio', url:'https://www.rug.fm/faq', img:'https://www.rug.fm/assets/logo.png'}
-];
-const communityList=document.getElementById('community-list');
-communities.forEach(c=>{const li=document.createElement('li'); li.innerHTML=`<strong>${c.name}</strong>: <a href="${c.url}" target="_blank">Site officiel</a><br><img class="lightbox-img" data-caption="${c.name}" src="${c.img}">`; communityList.appendChild(li);});
+{ name:'Bored Ape Yacht Club', url:'https://boredapeyachtclub.com/', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f6f34.png'}, { name:'Nifty Gateway', url:'https://www.niftygateway.com/', img:'https://niftygateway.com/img/logo.svg'}, { name:'Rug Radio', url:'https://www.rug.fm/faq', img:'https://www.rug.fm/assets/logo.png'} ]; const communityList=document.getElementById('community-list'); communities.forEach(c=>{const li=document.createElement('li'); li.innerHTML=<strong>${c.name}</strong>: <a href="${c.url}" target="_blank">Site officiel</a><br><img class="lightbox-img" data-caption="${c.name}" src="${c.img}">; communityList.appendChild(li);});
 
-// Sample NFTs
-const nftData = [
-{ name:'Moonbirds', price:15, volume:1200, rarity:'Élevée', img:'https://images.openai.com/thumbnails/url/l3rnU3icu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw42Tc-ONyh0zfCoDAgrDXXx9A4N8y9Ozgs0SC3QjXer9CnzMS6O0vzitR1K85MzDItC8gNzSz0NsrOSVcrBgAalyoA'},
-{ name:'BAYC', price:70, volume:3200, rarity:'Très élevée', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f6f34.png'},
-{ name:'Grails', price:50, volume:500, rarity:'Rare', img:'https://i.seadn.io/gae/ExGrailsNFT.png'}
-];
-const nftListEl=document.getElementById('nft-list');
-const nftGallery=document.getElementById('nft-gallery');
-nftData.forEach(nft=>{nftListEl.innerHTML+=`<tr><td class="name">${nft.name}</td><td class="price">${nft.price}</td><td class="volume">${nft.volume}</td><td class="rarity">${nft.rarity}</td></tr>`; nftGallery.innerHTML+=`<img class="lightbox-img" data-caption="${nft.name} NFT, prix moyen ${nft.price} ETH" src="${nft.img}">`;});
+// Sample NFT list const nftData = [ { name:'Moonbirds', price:15, volume:1200, rarity:'Élevée', img:'https://images.openai.com/thumbnails/url/l3rnU3icu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw42Tc-ONyh0zfCoDAgrDXXx9A4N8y9Ozgs0SC3QjXer9CnzMS6O0vzitR1K85MzDItC8gNzSz0NsrOSVcrBgAalyoA'}, { name:'BAYC', price:70, volume:3200, rarity:'Très élevée', img:'https://boredapeyachtclub.com/static/media/BAYCLogo.5b1f6f34.png'}, { name:'Grails', price:50, volume:500, rarity:'Rare', img:'https://i.seadn.io/gae/ExGrailsNFT.png'} ]; const nftListEl=document.getElementById('nft-list'); const nftGallery=document.getElementById('nft-gallery'); nftData.forEach(nft=>{nftListEl.innerHTML+=<tr><td class="name">${nft.name}</td><td class="price">${nft.price}</td><td class="volume">${nft.volume}</td><td class="rarity">${nft.rarity}</td></tr>; nftGallery.innerHTML+=<img class="lightbox-img" data-caption="${nft.name} NFT, prix moyen ${nft.price} ETH" src="${nft.img}">;});
 
-// Events
-const eventsData = [
-{ name:'ETHCC Paris', desc:'Ethereum Community Conference annuel, juin.', url:'https://www.ethcc.io/', img:'https://upload.wikimedia.org/wikipedia/commons/7/7c/ETHCC_Logo.png'},
-{ name:'Meetup Marseille', desc:'Networking et échanges communautaires.', img:'https://miro.medium.com/max/1400/1*i3h2Tke7rH6XOfcmy2QFfw.png'},
-{ name:'Workshop NFT', desc:'Initiation et stratégies pour investisseurs.', img:'https://i.imgur.com/FRvZg1F.png'}
-];
-const eventsListEl=document.getElementById('events-list');
-eventsData.forEach(ev=>{eventsListEl.innerHTML+=`<p><strong>${ev.name}</strong> - ${ev.desc} ${ev.url?'<a href="'+ev.url+'" target="_blank">Site officiel</a>':''}</p><img class="lightbox-img" data-caption="${ev.name}" src="${ev.img}">`;});
+// Section 3 events const eventsData = [ { name:'ETHCC Paris', desc:'Ethereum Community Conference annuel, juin.', url:'https://www.ethcc.io/', img:'https://upload.wikimedia.org/wikipedia/commons/7/7c/ETHCC_Logo.png'}, { name:'Meetup Marseille', desc:'Networking et échanges communautaires.', img:'https://miro.medium.com/max/1400/1*i3h2Tke7rH6XOfcmy2QFfw.png'}, { name:'Workshop NFT', desc:'Initiation et stratégies pour investisseurs.', img:'https://i.imgur.com/FRvZg1F.png'} ]; const eventsListEl=document.getElementById('events-list'); eventsData.forEach(ev=>{eventsListEl.innerHTML+=<p><strong>${ev.name}</strong> - ${ev.desc} ${ev.url?'<a href="'+ev.url+'" target="_blank">Site officiel</a>':''}</p><img class="lightbox-img" data-caption="${ev.name}" src="${ev.img}">;});
 
-// Lightbox
-const lightbox=document.getElementById('lightbox');
-const lbImage=lightbox.querySelector('img');
-const lbCaption=lightbox.querySelector('.lightbox-caption');
-let images=document.querySelectorAll('.lightbox-img');
-let currentIndex=0;
-images.forEach((img,i)=>{img.addEventListener('click',()=>{currentIndex=i;openLightbox();});});
-function openLightbox(){lightbox.style.display='flex';lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
-function closeLightbox(){lightbox.style.display='none';}
-function prevImage(){currentIndex=(currentIndex-1+images.length)%images.length;lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
-function nextImage(){currentIndex=(currentIndex+1)%images.length;lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
+// Lightbox const lightbox=document.getElementById('lightbox'); const lbImage=lightbox.querySelector('img'); const lbCaption=lightbox.querySelector('.lightbox-caption'); let images=document.querySelectorAll('.lightbox-img'); let currentIndex=0; images.forEach((img,i)=>{img.addEventListener('click',()=>{currentIndex=i;openLightbox();});}); function openLightbox(){lightbox.style.display='flex';lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;} function closeLightbox(){lightbox.style.display='none';} function prevImage(){currentIndex=(currentIndex-1+images.length)%images.length;lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;} function nextImage(){currentIndex=(currentIndex+1)%images.length;lbImage.src=images[currentIndex].src;lbCaption.textContent=images[currentIndex].dataset.caption;}
 
-// Charts
-const ctx=document.getElementById('marketChart').getContext('2d');
-new Chart(ctx,{type:'doughnut',data:{labels:['Art numérique','Jeux vidéo','Musique','Autres'],datasets:[{data:[40,30,20,10],backgroundColor:['#007bff','#28a745','#ffc107','#dc3545']}]} ,options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
-const ctx2=document.getElementById('priceTrendChart').getContext('2d');
-new Chart(ctx2,{type:'line',data:{labels:['J-30','J-25','J-20','J-15','J-10','J-5','Aujourd’hui'],datasets:[{label:'Moonbirds',data:[12,13,14,13,14,15,15],borderColor:'#007bff',fill:false},{label:'BAYC',data:[65,66,68,69,70,71,70],borderColor:'#28a745',fill:false},{label:'Grails',data:[45,46,47,48,49,50,50],borderColor:'#ffc107',fill:false}]} ,options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:false}}}});
+// Charts const ctx=document.getElementById('marketChart').getContext('2d'); new Chart(ctx,{type:'doughnut',data:{labels:['Art numérique','Jeux vidéo','Musique','Autres'],datasets:[{data:[40,30,20,10],backgroundColor:['#007bff','#28a745','#ffc107','#dc3545']}]} ,options:{responsive:true,plugins:{legend:{position:'bottom'}}}}); const ctx2=document.getElementById('priceTrendChart').getContext('2d'); new Chart(ctx2,{type:'line',data:{labels:['J-30','J-25','J-20','J-15','J-10','J-5','Aujourd’hui'],datasets:[{label:'Moonbirds',data:[12,13,14,13,14,15,15],borderColor:'#007bff',fill:false},{label:'BAYC',data:[65,66,68,69,70,71,70],borderColor:'#28a745',fill:false},{label:'Grails',data:[45,46,47,48,49,50,50],borderColor:'#ffc107',fill:false}]} ,options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:false}}}});
 
-// List.js
-var options={valueNames:['name','price','volume','rarity']};
-var nftList=new List('nft-list',options);
+// List.js var options={valueNames:['name','price','volume','rarity']}; var nftList=new List('nft-list',options);
 
-// PDF
-function generatePDF(){document.querySelectorAll('.section .content').forEach(c=>c.style.display='block'); const element=document.body; const opt={margin:0.5,filename:'Rapport_NFT_Ultime_Pro.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}; html2pdf().set(opt).from(element).save(); document.querySelectorAll('.section .content').forEach(c=>c.style.display='none');}
-</script>
+// PDF function generatePDF(){document.querySelectorAll('.section .content').forEach(c=>c.style.display='block'); const element=document.body; const opt={margin:0.5,filename:'Rapport_NFT_Ultime_Pro.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'in',format:'a4',orientation:'portrait'}}; html2pdf().set(opt).from(element).save(); document.querySelectorAll('.section .content').forEach(c=>c.style.display='none');} </script>
+
 </body>
 </html>
+
+
+
+  
